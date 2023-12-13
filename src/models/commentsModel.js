@@ -1,25 +1,23 @@
 const mongoose = require("mongoose");
 
-const PostSchema = new mongoose.Schema(
+const CommentSchema = new mongoose.Schema(
     {
         userId: {
             type: String,
             required: true,
         },
-        desc: {
+        postId: {
             type: String,
-            max: 500,
-        },
-        img: {
-            type: Array,
-            default: [],
+            required: true,
         },
         likes: {
             type: Array,
             default: [],
-        }
+        },
+        desc: {
+            type: String,
+            max: 500,
+        },
     },
     { timestamps: true }
-);
-
-module.exports = mongoose.model("Post", PostSchema);
+)

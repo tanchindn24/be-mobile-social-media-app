@@ -9,6 +9,16 @@ const UserSchema = new mongoose.Schema(
             max: 20,
             unique: true,
         },
+        fullname: {
+            type: String,
+            default: "",
+            max: 20,
+        },
+        biography: {
+            type: String,
+            default: "",
+            max: 50,
+        },
         email: {
             type: String,
             required: true,
@@ -35,15 +45,7 @@ const UserSchema = new mongoose.Schema(
         isAdmin: {
             type: Boolean,
             default: false,
-        },
-        name: {
-            type: String,
-            max: 20,
-        },
-        desc: {
-            type: String,
-            max: 50,
-        },
+        },        
         city: {
             type: String,
             max: 50,
@@ -55,6 +57,10 @@ const UserSchema = new mongoose.Schema(
         relationship: {
             type: Number,
             enum: [1, 2, 3],
+        },
+        bookmarks: {
+            type: Array,
+            default: [],
         },
     },
     {timestamps: true}

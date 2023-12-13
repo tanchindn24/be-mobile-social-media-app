@@ -6,21 +6,30 @@ const {hashedPassword, isValidPassword} = require("../../helpers/hashPassword");
 const {signAccessToken, signRefreshAccessToken, verifyRefreshToken} = require("../../helpers/jwtHelper");
 
 const CreatePostController = asyncHandler(async (req, res) => {
-    const {userId, desc, img} = req.body;
-    const user = req.user;
-    const post = await Post.create({
-        userId,
-        desc,
-        img
-    });
-    if (post) {
-        res.status(200).json({
-            message: "Create post success",
-            data: post
+    const { idUser, post } = req.body.parameters;
+    if (!idUser) {
+        return res.status(401).send({
+            status: 401,
+            message: "Authentication failed",
+        });
+    };
+    const postObject = {
+        userId: idUser,
+        desc: post.description ?? '',
+        img: post.image ?? '',
+    };
+    const postCreate = await Post.create(postObject);
+    if (postCreate) {
+        return res.status(200).send({
+            status: 200,
+            message: "success",
+            data: postCreate
         });
     } else {
-        res.status(400);
-        throw new Error("Invalid post data");
+        return res.status(500).send({
+            status: 500,
+            message: "Internal Server Error"
+        });
     }
 });
 
