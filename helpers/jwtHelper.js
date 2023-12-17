@@ -45,14 +45,14 @@ module.exports = {
         });
     },
     verifyAccessRoleAdmin: (req, res, next) => {
-        const {role} = req.body
-        if(role !== 'admin') {
+        const { role } = req.body;
+        if (role !== "admin") {
             return res.send({
                 status: 500,
-                message: ''
-            })
+                message: "",
+            });
         }
-        next()
+        next();
     },
     verifyAccessTokenQR: (req, res, next) => {
         if (!req.body?.tokenQR) return next(createError.Unauthorized());
